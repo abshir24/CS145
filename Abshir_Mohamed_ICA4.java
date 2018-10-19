@@ -1,112 +1,74 @@
 /**
 * The Program Class handles the main functionality of the program
-* This programs purpose is to count the number of occurrences of each word in a file and determine how many of each of them there are.
-* Print them out from most common to least common, printing out both the word and the count.
+* This programs purpose is to run two recursive funtions that have two different purposes.
 * @author Abshir Mohamed
 * @version 1.0
 */
-
 import java.util.*;
-import java.io.*;
-
 public class Program {
 
-	/**
-	   * Main functions handles all of the functionality for this program
-	   * This function parses through a map and records all words from smallest word count to largest
-	 */ 
 	public static void main(String[] args)
 	{
-	
-		Map<String,Integer> map = retrieveWords();
+		/**
+		   * Main functions handles all of the functionality for this program
+		 **/ 
 		
-		while(!map.isEmpty())
-		{
-			int SMNSF = 1000;
-			
-			String SWSF = "";
-			
-			for(String x: map.keySet())
-			{
-				if(map.get(x) < SMNSF)
-				{
-					SMNSF = map.get(x);
-					SWSF = x;
-				}
-			}
-			
-			System.out.println(SWSF + " " + SMNSF);
-			
-			map.remove(SWSF);
-		}
+		writeSquares(8);
+		
+		
+		System.out.println(isPalindrome("madam"));
+		
 	}
 	
 	/**
-	   * retrieveWords parses through a file and records how many times a specific word appears in a file
-	   * @throws FileNotFoundExeption
-	   * @returns a map containing all the words and how many times they appear in the file
- */ 
-	public static Map<String,Integer> retrieveWords()
-	{	
-		Map<String,Integer> returnMap = new HashMap<>();
-				
-		try {
-			
-			Scanner file = new Scanner(new File("src/DataFile1.txt"));
-			
-			
-			while(file.hasNext())
-			{
-				String word = file.next();
-				
-				if(!returnMap.containsKey(word))
-					returnMap.put(word,1);
-				else
-					returnMap.put(word,returnMap.get(word)+1);
-			}
-			
-	    }catch (FileNotFoundException e) {
-	    	
-	        throw new AssertionError("The file is expected to exist (was supposed to be verified earlier)");
-	        
-	    }
-		
-		
-		return returnMap;
+	   * isPalindrome checks to see if word is a palindrome recursively
+	   * @param word that needs to be checked
+	   * @returns a boolean if word is palindrome
+*/ 
 	
+	public static boolean isPalindrome(String word)
+	{
+		int s = 0,e = word.length()-1;
+		
+		if(word.length() ==1)
+			return true;
+		
+		if(word.charAt(0) == word.charAt(word.length()-1))
+			return isPalindrome(word.substring(++s,--e + 1));
+		else
+			return false;
+		
 	}
 	
-	
-///Inefficient Solution
-	
-//	public static ArrayList<Integer> numberStorage(Map<String,Integer> map)
-//	{
-//		ArrayList<Integer> list = new ArrayList<>();
-//		for(String x:map.keySet())
-//		{
-//			list.add(map.get(x));
-//		}
-//		
-//		Collections.sort(list);
-//		
-//		return list;
-//	}
-//	
-//	public static ArrayList<String> finalReturn(ArrayList<Integer> list,Map<String,Integer> map)
-//	{
-//		ArrayList<String> returnList = new ArrayList<>();
-//		
-//		for(int i = 0;i<list.size();i++)
-//		{
-//			int num = list.get(i);
-//			
-//			for(String x: map.keySet())
-//			{
-//				if(map.get(x) == num && !returnList.contains(x + " " + num ))
-//					returnList.add(x + " " + num );
-//			}
-//		}
-//		
-//		return returnList;
-//	}
+	/**
+	   * writeSquares prints numbers squares of numbers up to input in odd order descending and even order ascending
+	   * @param number input to count down from
+*/ 
+	public static void writeSquares(int num)
+	{
+		if(num <= 0)
+		{
+			return;
+		}
+		{
+			if(num%2 == 0)
+			{
+				writeSquares(num-1);
+				System.out.print(num*num+" ");
+			}
+			
+			else {
+				System.out.print(num*num+" ");
+				writeSquares(num-1);
+				
+			}
+				
+			
+		}
+		
+	}
+
 }
+
+
+
