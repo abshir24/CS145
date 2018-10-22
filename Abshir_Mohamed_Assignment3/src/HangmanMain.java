@@ -11,11 +11,11 @@ import java.util.*;
 import java.io.*;
 
 public class HangmanMain {
-	public static final String DICTIONARY_FILE = "dictionary.txt";
-	public static final boolean DEBUG = false; // show words left
+	public static final String DICTIONARY_FILE = "src/dictionary2.txt";
+	public static final boolean DEBUG = true; // show words left
 
 	public static void main(String[] args) throws FileNotFoundException {
-		System.out.println("Welcome to the CS145 <EVIL> Hangman game.");
+		System.out.println("Welcome to the CS145 <COOL> Hangman game.");
 		System.out.println();
 
 		// open the dictionary file and read dictionary into an ArrayList
