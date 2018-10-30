@@ -54,7 +54,7 @@ public class HangmanManager {
 */ 
 	public Set<String> retrieveWords(List<String> dictionary, int len)
 	{	
-		Set<String> returnSet = new TreeSet();
+		Set<String> returnSet = new TreeSet<>();
 		
 		for(int i = 0;i<dictionary.size();i++)
 			if(dictionary.get(i).length() == len)
