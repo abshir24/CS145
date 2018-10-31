@@ -1,3 +1,12 @@
+/* 
+ * Class Grammar is the class that handles most of the back-end functionality that goes
+ * behind making the Grammar program. This class is constructed using a lot of helper functions to emulate
+ * a recursive grammar that generates a sentence based on user input.
+ *  @author Abshir Mohamed
+ * 	@version 1.0
+ */
+
+
 import java.io.*;
 import java.util.*;
 
@@ -10,6 +19,14 @@ public class GrammarSolver {
 	List<String> terminals = new ArrayList<>();
 	
 	List<String> original;
+	
+	/**
+	   * The main constructor for this class
+	   * @param list is a list of strings that contains the contents of the file
+	   * that the user selected
+	   * @throws illegal argument exception if the list is null or the list does not contain any elements
+	   * @throws illegal argument exception if the list contains the same non-terminal for more than 1 element.
+*/  
 	
 	public GrammarSolver(List<String> list)
 	{
@@ -46,8 +63,19 @@ public class GrammarSolver {
 		
 		convertGrammarMap();
 		
+		System.out.println("MAP!!!!! " + grammarMap);
+		
 	}
 	
+	
+	/**
+	   * The contains function checks to see if the list of non-terminals contains the
+	   * terminal requested by the user
+	   * @param String symbol is the non-terminal requested by the user
+	   * @throws an illegal argument exception if the symbol does not have any characters or 
+	   * if the symbol is null
+	   * @returns boolean indicating whether or not the symbol is in the list of non terminals
+*/ 
 	public boolean contains(String symbol)
 	{
 		if(symbol.length() == 0 || symbol == null)
@@ -56,6 +84,12 @@ public class GrammarSolver {
 		return nonTerminals.contains(symbol);
 	}
 	
+	
+	/**
+	   * The getSymbols converts the nonTerminal list into a sorted
+	   * TreeSet and returns that set
+	   * @returns sorted TreeSet of nonterminals
+*/ 
 	public Set<String>getSymbols()
 	{
 		Set<String> nonTerminalSet = new TreeSet<>(nonTerminals);
@@ -63,6 +97,12 @@ public class GrammarSolver {
 		return nonTerminalSet;
 	}
 	
+	
+	/**
+	   * The converGrammarMap function store the contents of the grammar into a Map.
+	   * So the non-terminal symbols become keys and their rules become values.
+	   * @param String symbol is the non-terminal requested by the user
+*/ 
 	
 	public void convertGrammarMap()
 	{
@@ -80,7 +120,7 @@ public class GrammarSolver {
 			for(int j = 0;j<lineArr.length;j++)
 			{
 				
-				rule = lineArr[j];
+				rule = lineArr[j].trim();
 				
 				if(grammarMap.containsKey(symbol))
 					grammarMap.get(symbol).add(rule);
@@ -96,8 +136,19 @@ public class GrammarSolver {
 		}
 	}
 	
+	/**
+	   * The generate function uses the grammar to generate a random occurrence of the given symbol and returns it as a String. 
+	   * @param String symbol is the non-terminal requested by the user
+	   * @throws an illegal argument exception if the symbol does not have any characters or 
+	   * if the symbol is null
+	   * @returns a randomly generated string with a random occurrence of the given symbol.
+*/ 
+	
 	public String generate(String symbol)
 	{
+		if(symbol == null || symbol.length() == 0)
+			throw new IllegalArgumentException("Symbol cannot be null or empty!!");
+		
 		if(!grammarMap.containsKey(symbol))
 			return symbol;
 		
@@ -119,6 +170,12 @@ public class GrammarSolver {
 	}
 	
 	
+	/**
+	   * The join function converts a string array to a string
+	   * @param String[] line is a string array created using the .split() method
+	   * @returns a string comprising of the array's contents
+*/ 
+	
 	public String join(String[] line)
 	{
 		String returnString = "";
@@ -129,6 +186,10 @@ public class GrammarSolver {
 		return returnString.trim();
 	}
 	
+	/**
+	   * The removeNonTerminals removes the nonTerminal piece from every line in the grammar
+	   * and stores the remaining contents into a list of strings to be used later in the program
+*/ 
 	public void removeNonTerminals()
 	{
 		int idx ;
