@@ -88,6 +88,7 @@ public class QuestionMain implements UserInterface {
     private void load() {
         print(LOAD_MESSAGE);
         if (nextBoolean()) {
+        	
             print(SAVE_LOAD_FILENAME_MESSAGE);
             String filename = nextLine();
             try {
