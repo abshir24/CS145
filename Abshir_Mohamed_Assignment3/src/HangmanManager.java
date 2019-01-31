@@ -54,7 +54,7 @@ public class HangmanManager {
 */ 
 	public Set<String> retrieveWords(List<String> dictionary, int len)
 	{	
-		Set<String> returnSet = new TreeSet<>();
+		Set<String> returnSet = new TreeSet();
 		
 		for(int i = 0;i<dictionary.size();i++)
 			if(dictionary.get(i).length() == len)
@@ -124,6 +124,7 @@ public class HangmanManager {
 */ 
 	public void patternTree(char c)
 	{
+		
 		for(String x: words)
 		{
 			Set<String> valueSet = new HashSet<>();
@@ -135,7 +136,13 @@ public class HangmanManager {
 				for(int i = 0;i<x.length();i++)
 				{
 					if(x.charAt(i)!=c)
-						keyPattern+='-';
+					{
+						if(rPattern.charAt(i) != '-')
+							keyPattern+= rPattern.charAt(i);
+						else
+							keyPattern+= '-';
+						
+					}	
 					else
 						keyPattern+=c;
 				}
@@ -145,6 +152,7 @@ public class HangmanManager {
 					valueSet.add(x);
 					map.put(keyPattern, valueSet);
 				}else {
+					
 					map.get(keyPattern).add(x);
 				}
 			}
@@ -202,7 +210,6 @@ public class HangmanManager {
 		
 		if(word.contains(""+c))
 		{
-			
 			int index = 0;
 			
 			String temp ="";
